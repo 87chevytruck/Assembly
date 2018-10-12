@@ -28,6 +28,9 @@ first_func:
 ;
 ;  BEGIN student code
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+    mov rcx, 1
+    shl rcx, 7
+    and rax, rcx
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;  END student code
@@ -50,7 +53,7 @@ second_func:
 ;
 ;  BEGIN student code
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
+    or rax, rdx
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;  END student code
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -67,7 +70,7 @@ third_func:
 ;
 ;  BEGIN student code
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
+    sub rax, rax
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;  END student code
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -88,7 +91,7 @@ fourth_func:
 ;
 ;  BEGIN student code
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
+    shl rax, 3
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;  END student code
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -108,7 +111,7 @@ fifth_func:
 ;
 ;  BEGIN student code
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
+    shr rax, 4
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;  END student code
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -131,7 +134,10 @@ sixth_func:
 ;
 ;  BEGIN student code
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
+    rol rax, 8
+    rol rax, 8
+    rol rax, 8
+    rol rax, 8
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;  END student code
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -158,6 +164,30 @@ seventh_func:
 ;
 ;  BEGIN student code
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+    xor rax, rdx
+    rol rax, 8
+
+    xor rax, rdx
+    rol rax, 8
+
+    xor rax, rdx
+    rol rax, 8
+
+    xor rax, rdx
+    rol rax, 8
+
+    xor rax, rdx
+    rol rax, 8
+
+    xor rax, rdx
+    rol rax, 8
+
+    xor rax, rdx
+    rol rax, 8
+
+    xor rax, rdx
+    rol rax, 8
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;  END student code
