@@ -19,7 +19,7 @@ first_func:
 ;
 ;  BEGIN student code
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
+    push rcx
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;  END student code
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -27,7 +27,7 @@ first_func:
     pop rbp
     ret
 
-second_func
+second_func:
     push rbp
     mov rbp, rsp
     mov rcx, value
@@ -52,6 +52,18 @@ second_func
 ;  BEGIN student code
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+    push rdx  ;preserve rdx value
+    xor rdx, rdx  ;zero out rdx
+    push rax  ;preserve rax value
+    mov rax, [rcx]  ;move value located at address referenced by rcx to rax
+    push rcx  ;preserve rcx reference to an address
+    mov rcx, 10  ;move 10 to rcx
+    div rcx  ;divides rax by rcx (10), remainder goes to rdx
+    pop rcx  ;brings back address reference of rcx
+    mov [rcx], rax  ;moves current rax value into the address reference of rcx
+    pop rax  ;brings back original rax value
+    pop rdx  ;brings back original rdx value
+    
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;  END student code
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
