@@ -1,0 +1,3 @@
+/home/student/Desktop/Smith/Assembly_Smith/Lab_6/CMakeFiles/rebuild_cache.dir
+/home/student/Desktop/Smith/Assembly_Smith/Lab_6/CMakeFiles/lab6.dir
+/home/student/Desktop/Smith/Assembly_Smith/Lab_6/CMakeFiles/edit_cache.dir

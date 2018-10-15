@@ -1,0 +1,1 @@
+/usr/bin/c++   -g  -rdynamic CMakeFiles/lab6.dir/Lab6.nasm.o CMakeFiles/lab6.dir/help.nasm.o CMakeFiles/lab6.dir/main.cpp.o  -o lab6 

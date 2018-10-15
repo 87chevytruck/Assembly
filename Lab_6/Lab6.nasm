@@ -17,7 +17,14 @@ first_func:
 ;
 ;  BEGIN student code
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
+    ;mov al, 220
+    ;add al, 111
+    pushf
+    pop rax
+    or rax, 1
+    push rax
+    popf
+    
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;  END student code
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -32,7 +39,13 @@ second_func:
 ;
 ;  BEGIN student code
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
+    ;mov al, -129
+    ;sub al, -330
+    pushf
+    pop rax
+    or rax, 2048
+    push rax
+    popf
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;  END student code
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -48,11 +61,16 @@ third_func:
 ;
 ;  BEGIN student code
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
+    ;mov al, -128
+    ;add al, -128
+    pushf
+    pop rax
+    or rax, 2049
+    push rax
+    popf
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;  END student code
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
     pop rbp
     ret
-
 
