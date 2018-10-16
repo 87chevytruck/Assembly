@@ -109,7 +109,6 @@ third_func:
 ;  HINT: 
 ;  Just like with second_func, except now we are dealing with chars
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-    ;mov rcx, rsi
     xor rax, rax  ;zero rax
     xor dl, dl  ;zero dl
 
