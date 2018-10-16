@@ -1,0 +1,1 @@
+/usr/bin/c++   -g  -rdynamic CMakeFiles/lab8.dir/Lab8.nasm.o CMakeFiles/lab8.dir/main.cpp.o  -o lab8 

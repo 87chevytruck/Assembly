@@ -14,7 +14,7 @@ first_func:
 ;  a buffer to initialize, a
 ;  pointer to which is in RDI,
 ;  and a number of bytes to set,
-;  which is stored in RCX.
+;  which is stored in RDX.
 ;
 ;  Implement a function that will
 ;  set the buffer pointed to by RDI
@@ -29,7 +29,10 @@ first_func:
 ;
 ;  BEGIN student code
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
+    
+    mov rcx, rdx
+    mov rax, rsi
+    rep stosb
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;  END student code
@@ -59,8 +62,8 @@ second_func:
 ; 
 ;  BEGIN student code
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-
+    mov rcx, rdx
+    rep movsb
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;  END student code
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -94,7 +97,14 @@ third_func:
 ;
 ;  BEGIN student code
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
+    xor rcx, rcx
+    mov rcx, 0xffffffffffffffffffffffffffffffffffffffffffffffffffff
+    mov rdx, rcx
+    mov rax, 0
+    repne scasb
+    sub rdx, rcx
+    dec rdx
+    mov rax, rdx
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;  END student code
