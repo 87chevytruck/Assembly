@@ -1,3 +1,7 @@
+;  Name:  Ricky Smith
+;  Title:  Lab 7
+;  Date:  16 Oct 2018
+
 bits 64
 
 global first_func, second_func, third_func
@@ -17,7 +21,26 @@ first_func:
 ;
 ;  BEGIN student code
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+    .compare:
+        cmp rdi, rsi
+        ;jg .above <- Not needed because the label .above will simply run after jl and je
+        jl .below
+        je .same
 
+    .above:
+        mov rax, 1
+        jmp .finish
+    
+    .below:
+        mov rax, -1
+        jmp .finish
+
+    .same:
+        mov rax, 0
+
+    .finish:
+
+    
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;  END student code
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -50,7 +73,19 @@ second_func:
 ;
 ;  BEGIN student code
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+    mov rcx, rsi
+    xor rax, rax
 
+    .continue:
+        add ax, [rdi + rcx * 4]  ;xor rcx, rcx
+
+    .continue:
+        add ax, [rdi + rax]
+        loop .continue
+        ;add ax, [rdi]
+        inc rax
+        loop .continue
+    add ax, [rdi]
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;  END student code
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -74,6 +109,19 @@ third_func:
 ;  HINT: 
 ;  Just like with second_func, except now we are dealing with chars
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+    ;mov rcx, rsi
+    xor rax, rax  ;zero rax
+    xor dl, dl  ;zero dl
+
+    .start_cmp:
+    cmp dl, [rdi + rax]  ;compares dl with rdi + rax (rax is 0 at start)
+
+    je .finish  ;if equal, end program
+
+    inc rax  ;increment rax by 1
+    jmp .start_cmp  ;rerun .start_cmp (makes a loop untio je .finish is triggered)
+
+    .finish:
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;  END student code
