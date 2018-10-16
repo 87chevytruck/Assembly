@@ -1,3 +1,7 @@
+;  Name:  Ricky Smith
+;  Title:  Lab 8
+;  Date:  16 Oct 2018
+
 bits 64
 
 global first_func, second_func, third_func
