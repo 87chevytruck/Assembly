@@ -1,6 +1,6 @@
 ;  Name:  Ricky Smith
 ;  Title:  Lab 7
-;  Date:  16 Oct 2018
+;  Date:  16 Oct 18
 
 bits 64
 
@@ -77,13 +77,7 @@ second_func:
     xor rax, rax
 
     .continue:
-        add ax, [rdi + rcx * 4]  ;xor rcx, rcx
-
-    .continue:
-        add ax, [rdi + rax]
-        loop .continue
-        ;add ax, [rdi]
-        inc rax
+        add ax, [rdi + rcx * 4]
         loop .continue
     add ax, [rdi]
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -109,6 +103,7 @@ third_func:
 ;  HINT: 
 ;  Just like with second_func, except now we are dealing with chars
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  
     xor rax, rax  ;zero rax
     xor dl, dl  ;zero dl
 
@@ -118,7 +113,7 @@ third_func:
     je .finish  ;if equal, end program
 
     inc rax  ;increment rax by 1
-    jmp .start_cmp  ;rerun .start_cmp (makes a loop untio je .finish is triggered)
+    jmp .start_cmp  ;rerun .start_cmp (makes a loop until je .finishes)
 
     .finish:
 
