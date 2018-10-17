@@ -1,0 +1,1 @@
+/usr/bin/c++   -g -no-pie  -rdynamic CMakeFiles/lab9.dir/Lab9.nasm.o CMakeFiles/lab9.dir/main.cpp.o  -o lab9 

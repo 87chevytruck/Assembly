@@ -14,7 +14,9 @@ first_func:
 ;
 ;  BEGIN student code
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
+    xor rax, rax
+    mov edi, mystr
+    call printf
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;  END student code
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -56,6 +58,22 @@ second_func:
 ; 
 ;  BEGIN student code
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+    xor rax, rax
+    
+    mov r9, rsi 
+    mov r8, rdi 
+    mov rdi, rsi
+    call strlen
+    
+    ;mov rsi, rax
+    ;mov rdi, r9
+
+    mov rsi, rax
+    push rsi
+    mov rdi, r9
+    push rdi
+    
+    call r8
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;  END student code
