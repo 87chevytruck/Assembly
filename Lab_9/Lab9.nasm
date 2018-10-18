@@ -1,3 +1,7 @@
+;  Ricky Smith
+;  Lab 9
+;  18 Oct 2018
+
 bits 64
 
 global first_func, second_func, third_func
@@ -58,22 +62,18 @@ second_func:
 ; 
 ;  BEGIN student code
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-    xor rax, rax
+    xor rax, rax  ;zero rax
     
-    mov r9, rsi 
-    mov r8, rdi 
-    mov rdi, rsi
-    call strlen
-    
-    ;mov rsi, rax
-    ;mov rdi, r9
+    mov r9, rsi ;preserve original rsi data
+    mov r8, rdi ;preserve original rdi data
 
-    mov rsi, rax
-    push rsi
-    mov rdi, r9
-    push rdi
+    mov rdi, rsi  ;mov rsi into rdi so the string is in rdi
+    call strlen  ;run strlen against string in rdi
     
-    call r8
+    mov rsi, rax  ;rax has return from strlen, move that to rsi
+    mov rdi, r9  ;r9 has the string, move that to rdi
+    call r8  ;call r8, the original rdi (function_ptr)
+    
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;  END student code
@@ -89,7 +89,18 @@ third_func:
 ;
 ;  BEGIN student code
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+    mov rcx, rdi  ;move rdi (N number) to rcx for loop counter
+    mov rax, 0  ;start rax at 0
+    mov r9, 1  ;start first "variable" at 1
 
+    .continue:
+        xor r8, r8  ;zero r8 each loop
+        add r8, rax  ;add rax to r8 each loop
+        add r8, r9  ;add r9 to r8 each loop
+        mov rax, r9  ;make rax equal to r9 each loop
+        mov r9, r8  ;make r9 equal to r8 each loop
+        loop .continue  ;creats loop through .continue label until rcx counter runs out
+    
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;  END student code
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
