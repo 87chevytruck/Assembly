@@ -1,0 +1,18 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/student/Desktop/Smith/Assembly_Smith/Lab_10/main.cpp
+stdio.h
+-
+stdlib.h
+-
+string.h
+-
+stdint.h
+-
+
