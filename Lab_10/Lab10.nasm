@@ -1,3 +1,9 @@
+;;;;;;;;;;;;;;;;;;;;;;;
+;;;;  Ricky Smith  ;;;;
+;;;;  Lab 10       ;;;;
+;;;;  22 Oct 2018  ;;;;
+;;;;;;;;;;;;;;;;;;;;;;;
+
 bits 64
 
 global first_func, second_func, third_func
@@ -31,7 +37,14 @@ second_func:
 ; 
 ;  BEGIN student code
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
+    xor rax, rax      ;zero rax
+    CPUID             ;call cpuid, values stored in ebx, edx, & ecx
+    mov eax, ebx      ;move ebx to eax
+    stosd             ;store eax into edi (edi is where buffer is located due to first arg)
+    mov eax, edx      ;move edx to eax
+    stosd             ;store eax into edi (edi is where buffer is located due to first arg)
+    mov eax, ecx      ;move ecx to eax
+    stosd             ;store eax into edi (edi is where buffer is located due to first arg)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;  END student code
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
