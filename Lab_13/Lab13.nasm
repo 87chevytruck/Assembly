@@ -110,6 +110,26 @@ ex_memchr:
 ;
 ;  BEGIN student code
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+    ;rdi = haystack
+    ;rsi = needle
+    ;rdx = length
+    xor rax, rax     ;zero rax
+    mov rax, rsi     ;move needle into rax
+    mov rcx, rdx     ;move lenght into rcx for count
+    repne scasb      ;scan rdi for rax
+    cmp rcx, 0       ;after scanning, if rcx = 0, it's not found
+    jne .found       ;jump to found if rcx != 0
+
+    .not_found:
+        mov rax, 0   ;make rax null
+        jmp .end     ;jump to end for return
+
+    .found:
+        sub rdx, rcx            ;sub original length with rcx count
+        ;sub rdx, 1              ;sub 1 from rdx to account for elements starting at 0, not 1
+        mov rax, [rdi + rdx]    ;make rax point to rdi + count
+
+    .end:
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;  END student code
@@ -122,7 +142,12 @@ ex_memcmp:
 ;
 ;  BEGIN student code
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
+    ;rdi = void
+    ;rsi = void
+    ;rdx = length
+    xor rax, rax
+    mov rcx, rdx
+    rep cmpsb
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;  END student code
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
