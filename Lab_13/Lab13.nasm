@@ -125,9 +125,13 @@ ex_memchr:
         jmp .end     ;jump to end for return
 
     .found:
-        sub rdx, rcx            ;sub original length with rcx count
+        ;sub rdx, rcx            ;sub original length with rcx count
         ;sub rdx, 1              ;sub 1 from rdx to account for elements starting at 0, not 1
-        mov rax, [rdi + rdx]    ;make rax point to rdi + count
+        ;mov rax, [rdi + rdx]    ;make rax point to rdi + count
+
+
+        mov rax, [rdi]
+
 
     .end:
 
