@@ -342,7 +342,7 @@ int main(int argc, char** argv)
     // #### UNCOMMENT AS NEEDED #######
     find_largest_test();
     string_tests();
-    //mem_tests();
+    mem_tests();
     //test_walk_list();
     //printf("Preparing to run Quicksort tests (BONUS)\n");
     //sort_tests(ex_qsort);

@@ -72,7 +72,12 @@ ex_memcpy:
 ;
 ;  BEGIN student code
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
+    ;rdi = dst
+    ;rsi = src
+    ;rdx = int count
+    xor rax, rax         ;zero rax
+    mov rcx, rdx         ;move rdx into rcx for use as counter
+    rep movsb            ;moves byte by byte from rsi to rdi
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;  END student code
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -85,6 +90,14 @@ ex_memset:
 ;
 ;  BEGIN student code
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+    ;rdi = buf
+    ;rsi = char value
+    ;rdx = length
+    xor rax, rax         ;zero rax
+    mov rcx, rdx         ;move rdx into rcx for use as counter
+    mov rax, rsi         ;mov char value from rsi to rax
+    rep stosb            ;stores rax into rdi
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;  END student code
