@@ -26,10 +26,10 @@ find_largest:
     mov edx, [rdi + rsi*4]
     jmp .compare
 
-    .less
+    .less:
         mov edx, ebx
 
-    .compare
+    .compare:
         dec rsi
         cmp rsi, -1
         je .end
@@ -38,7 +38,7 @@ find_largest:
         jg .compare
         jl .less
 
-    .end
+    .end:
         mov eax, edx
     
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -88,7 +88,7 @@ ex_memset:
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;	void memset(void* buf, unsigned char value, size_t length);
 ;
-;  BEGIN student code
+;  BEGIN student c sub rcx, 1ode
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
     ;rdi = buf
     ;rsi = char value
@@ -125,12 +125,14 @@ ex_memchr:
         jmp .end     ;jump to end for return
 
     .found:
-        ;sub rdx, rcx            ;sub original length with rcx count
-        ;sub rdx, 1              ;sub 1 from rdx to account for elements starting at 0, not 1
-        ;mov rax, [rdi + rdx]    ;make rax point to rdi + count
+        sub rdx, rcx            ;sub original length with rcx count
+        sub rdx, 1              ;sub 1 from rdx to account for elements starting at 0, not 1
+        ;add rdx, 1
+        ;sub rcx, 1
+        mov rax, [rdi + rdx]    ;make rax point to rdi + count
 
 
-        mov rax, [rdi]
+       ;mov rax, [rdi]
 
 
     .end:
@@ -161,7 +163,36 @@ ex_strchr:
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;  BEGIN student code
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+    ;rdi = char string
+    ;rsi = int char
+;xor rax, rax
+;   startloop:                      ;loop to get string length
+;        xor rdx, rdx               ;zero rdx
+;        mov dl, byte [rdi+rax]     ;itterates through string located in rdi
+;        inc rax                    ;increments rax to use as counter
+;        cmp dl, 0                  ;compares dl with null
+;        jne startloop              ;if not null keep looping, otherwise continue
+;        sub rax, 1                 ;subtract 1 from counter
+;
+;    mov rcx, rax
+;    repne scasb
+;    cmp rcx, 0       ;after scanning, if rcx = 0, it's not found
+;    jne .found       ;jump to found if rcx != 0
+;
+;    .not_found:
+;        mov rax, 0   ;make rax null
+;        jmp .end     ;jump to end for return
+;
+;    .found:
+        ;sub rdx, rcx            ;sub original length with rcx count
+        ;sub rdx, 1              ;sub 1 from rdx to account for elements starting at 0, not 1
+        ;mov rax, [rdi + rdx]    ;make rax point to rdi + count
 
+
+;        mov rax, byte [rdi]
+
+
+ ;   .end:
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;  END student code
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -171,7 +202,61 @@ ex_strcmp:
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;  BEGIN student code
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+    ;rdi = string 1
+    ;rsi = string 2
+    xor rax, rax
+;    get_len:                      ;loop to get string length
+;        xor rdx, rdx               ;zero rdx
+;        mov dl, byte [rdi+rax]     ;itterates through string located in rdi
+;        inc rax                    ;increments rax to use as counter
+;        cmp dl, 0                  ;compares dl with null
+;        jne get_len              ;if not null keep looping, otherwise continue
+;        sub rax, 1                 ;subtract 1 from counter
+;    mov rcx, rax
+;    xor rax, rax
 
+    .loop_this
+        mov al, byte [rdi]
+        mov ah, byte [rsi]
+        cmp al, 0
+        je .null
+        cmp ah, 0
+        je .null
+
+        cmp al, ah
+        ja .string1_greater
+        jb .string2_greater
+        inc rdi
+        inc rsi
+        jmp .loop_this
+
+    .null:
+        cmp al, ah
+        ja .string1_greater
+        jb .string2_greater
+        je .same
+
+
+
+;    repe cmpsb
+;    cmp rdi, rsi
+;    ja .string1_greater
+;    jb .string2_greater
+;    je .same
+
+    .string1_greater:
+        mov rax, 1
+        jmp .finish
+
+    .string2_greater:
+        mov rax, -1
+        jmp .finish
+
+    .same:
+        mov rax, 0
+
+    .finish:
+        
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;  END student code
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
