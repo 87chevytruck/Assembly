@@ -158,33 +158,25 @@ ex_strchr:
     ;rdi = char string
     ;rsi = int char
 xor rax, rax
-   .loop_it:                      ;loop to get string length
-        xor rdx, rdx               ;zero rdx
-        mov dl, byte [rsi+rax]     ;itterates through string located in rdi
-        inc rax                    ;increments rax to use as counter
-        cmp dl, 0                  ;compares dl with null
-        jne .loop_it              ;if not null keep looping, otherwise continue
-        sub rax, 1                 ;subtract 1 from counter
+push rdi
+mov rax, rdi
+call ex_strlen
+xor rcx, rcx
+mov rcx, rax
+pop rdi
+xor rax, rax
+mov rax, rsi
+repne scasb
+jne .not_found
 
-    mov rcx, rax
-    repne scasb
-    cmp rcx, 0       ;after scanning, if rcx = 0, it's not found
-    jne .found       ;jump to found if rcx != 0
-
-    .not_found:
-        mov rax, 0   ;make rax null
+.found:
+        lea rax, [rdi-1]
         jmp .end     ;jump to end for return
 
-    .found:
-        ;sub rdx, rcx            ;sub original length with rcx count
-        ;sub rdx, 1              ;sub 1 from rdx to account for elements starting at 0, not 1
-        ;mov rax, [rdi + rdx]    ;make rax point to rdi + count
-
-
-        lea rax, [rdi-1]
-
-
-   .end:
+.not_found:
+    mov rax, 0   ;make rax null
+    
+.end:
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;  END student code
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -243,41 +235,19 @@ ex_strcpy:
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
     ;rdi = destination
     ;rsi = source
-    xor rax, rax
-    ;xor rcx, rcx
-    ;xor rdx, rdx
-    xor rdi, rdi
-
-    .move_string:
-        xor rdx, rdx
-        mov dl, byte [rsi]
-        cmp dl, 0
-        je .done
-        mov al, byte [rsi]
-        inc rsi
-        jmp .move_string
-    
-;    .loop_this:
-;        inc rcx
-;        ;mov al, byte [rdi]     ;move byte from string 1 into al
-;        mov dh, byte [rsi]     ;move byte from string 2 into ah
-;        ;cmp al, 0              ;check al for null
-;        ;je .null               ;jump if null
-;        cmp dh, 0              ;check ah for null
-;        jne .keep_count
-;        je .null_hit         ;jump if null 
-;        
-;    .keep_count:
-;        lodsb
-;        inc rsi
-;        jmp .loop_this
-;
-;
-;    .null_hit:
-;        lodsb
-;        jmp .done      
-;        
-    .done:
+xor rax, rax    ;zero rax
+mov r10, rdi    ;move dest buffer to r10
+xor rdi, rdi    ;zero rdi for use in ex_strlen
+mov rdi, rsi    ;move source into rdi for use in ex_strlen
+call ex_strlen  ;get string length, result in rax
+xor rcx, rcx    ;zero rcx
+mov rcx, rax    ;make rcx strlen for counter
+xor rdi, rdi    ;zero rdi
+mov rdi, r10    ;move dest buffer back into rdi
+rep movsb       ;move byte by byte from rsi to rdi
+xor rax, rax    ;zero rax
+stosb           ;initialize and store first byte of rax to rdi (zero)
+mov rax, r10    ;move dest buffer into rax for return
         
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;  END student code
