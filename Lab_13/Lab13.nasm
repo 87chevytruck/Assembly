@@ -115,7 +115,7 @@ ex_memchr:
     ;rdx = length
     xor rax, rax     ;zero rax
     mov rax, rsi     ;move needle into rax
-    mov rcx, rdx     ;move lenght into rcx for count
+    mov rcx, rdx     ;move length into rcx for count
     repne scasb      ;scan rdi for rax
     cmp rcx, 0       ;after scanning, if rcx = 0, it's not found
     jne .found       ;jump to found if rcx != 0
@@ -124,16 +124,8 @@ ex_memchr:
         mov rax, 0   ;make rax null
         jmp .end     ;jump to end for return
 
-    .found:
-        sub rdx, rcx            ;sub original length with rcx count
-        sub rdx, 1              ;sub 1 from rdx to account for elements starting at 0, not 1
-        ;add rdx, 1
-        ;sub rcx, 1
-        mov rax, [rdi + rdx]    ;make rax point to rdi + count
-
-
-       ;mov rax, [rdi]
-
+    .found: 
+        lea rax, [rdi-1]    ;make rax point to the "location" of rdi - 1
 
     .end:
 
@@ -165,34 +157,34 @@ ex_strchr:
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
     ;rdi = char string
     ;rsi = int char
-;xor rax, rax
-;   startloop:                      ;loop to get string length
-;        xor rdx, rdx               ;zero rdx
-;        mov dl, byte [rdi+rax]     ;itterates through string located in rdi
-;        inc rax                    ;increments rax to use as counter
-;        cmp dl, 0                  ;compares dl with null
-;        jne startloop              ;if not null keep looping, otherwise continue
-;        sub rax, 1                 ;subtract 1 from counter
-;
-;    mov rcx, rax
-;    repne scasb
-;    cmp rcx, 0       ;after scanning, if rcx = 0, it's not found
-;    jne .found       ;jump to found if rcx != 0
-;
-;    .not_found:
-;        mov rax, 0   ;make rax null
-;        jmp .end     ;jump to end for return
-;
-;    .found:
+xor rax, rax
+   .loop_it:                      ;loop to get string length
+        xor rdx, rdx               ;zero rdx
+        mov dl, byte [rsi+rax]     ;itterates through string located in rdi
+        inc rax                    ;increments rax to use as counter
+        cmp dl, 0                  ;compares dl with null
+        jne .loop_it              ;if not null keep looping, otherwise continue
+        sub rax, 1                 ;subtract 1 from counter
+
+    mov rcx, rax
+    repne scasb
+    cmp rcx, 0       ;after scanning, if rcx = 0, it's not found
+    jne .found       ;jump to found if rcx != 0
+
+    .not_found:
+        mov rax, 0   ;make rax null
+        jmp .end     ;jump to end for return
+
+    .found:
         ;sub rdx, rcx            ;sub original length with rcx count
         ;sub rdx, 1              ;sub 1 from rdx to account for elements starting at 0, not 1
         ;mov rax, [rdi + rdx]    ;make rax point to rdi + count
 
 
-;        mov rax, byte [rdi]
+        lea rax, [rdi-1]
 
 
- ;   .end:
+   .end:
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;  END student code
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -249,7 +241,44 @@ ex_strcpy:
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;  BEGIN student code
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+    ;rdi = destination
+    ;rsi = source
+    xor rax, rax
+    ;xor rcx, rcx
+    ;xor rdx, rdx
+    xor rdi, rdi
 
+    .move_string:
+        xor rdx, rdx
+        mov dl, byte [rsi]
+        cmp dl, 0
+        je .done
+        mov al, byte [rsi]
+        inc rsi
+        jmp .move_string
+    
+;    .loop_this:
+;        inc rcx
+;        ;mov al, byte [rdi]     ;move byte from string 1 into al
+;        mov dh, byte [rsi]     ;move byte from string 2 into ah
+;        ;cmp al, 0              ;check al for null
+;        ;je .null               ;jump if null
+;        cmp dh, 0              ;check ah for null
+;        jne .keep_count
+;        je .null_hit         ;jump if null 
+;        
+;    .keep_count:
+;        lodsb
+;        inc rsi
+;        jmp .loop_this
+;
+;
+;    .null_hit:
+;        lodsb
+;        jmp .done      
+;        
+    .done:
+        
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;  END student code
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
