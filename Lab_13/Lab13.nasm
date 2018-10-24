@@ -205,54 +205,37 @@ ex_strcmp:
     ;rdi = string 1
     ;rsi = string 2
     xor rax, rax
-;    get_len:                      ;loop to get string length
-;        xor rdx, rdx               ;zero rdx
-;        mov dl, byte [rdi+rax]     ;itterates through string located in rdi
-;        inc rax                    ;increments rax to use as counter
-;        cmp dl, 0                  ;compares dl with null
-;        jne get_len              ;if not null keep looping, otherwise continue
-;        sub rax, 1                 ;subtract 1 from counter
-;    mov rcx, rax
-;    xor rax, rax
 
-    .loop_this
-        mov al, byte [rdi]
-        mov ah, byte [rsi]
-        cmp al, 0
-        je .null
-        cmp ah, 0
-        je .null
+    .loop_this:
+        mov al, byte [rdi]     ;move byte from string 1 into al
+        mov ah, byte [rsi]     ;move byte from string 2 into ah
+        cmp al, 0              ;check al for null
+        je .null               ;jump if null
+        cmp ah, 0              ;check ah for null
+        je .null               ;jump if null
 
-        cmp al, ah
-        ja .string1_greater
-        jb .string2_greater
-        inc rdi
-        inc rsi
-        jmp .loop_this
+        cmp al, ah             ;compare al and ah
+        ja .string1_greater    ;jump to string1_greater if al is larger value
+        jb .string2_greater    ;jump to string2_greater if ah is larger value
+        inc rdi                ;increment rdi in prep for loop
+        inc rsi                ;increment rsi in prep for loop
+        jmp .loop_this         ;loop through above
 
     .null:
-        cmp al, ah
-        ja .string1_greater
-        jb .string2_greater
-        je .same
+        cmp al, ah             ;compare al and ah
+        ja .string1_greater    ;al is not null, but ah is null
+        jb .string2_greater    ;ah is not null, but al is null
+        je .same               ;both al and ah are null
 
-
-
-;    repe cmpsb
-;    cmp rdi, rsi
-;    ja .string1_greater
-;    jb .string2_greater
-;    je .same
-
-    .string1_greater:
-        mov rax, 1
+    .string1_greater:          ;set return value
+        mov rax, 1             
         jmp .finish
 
-    .string2_greater:
+    .string2_greater:          ;set return value
         mov rax, -1
         jmp .finish
 
-    .same:
+    .same:                     ;set return value
         mov rax, 0
 
     .finish:
