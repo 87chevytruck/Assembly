@@ -1,3 +1,8 @@
+;  Ricky Smith    ;
+;  Wednesday Lab  ;
+;  25 Oct 2018    ;
+;;;;;;;;;;;;;;;;;;;
+
 bits 32
 
 global _sum_array@8, _find_largest
