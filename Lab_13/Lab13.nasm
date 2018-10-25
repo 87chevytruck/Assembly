@@ -287,7 +287,76 @@ ex_strstr:
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;  BEGIN student code
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+    ;rdi = string 1 (hay stack)
+    ;rsi = string 2 (needle)
+    mov r8, rdi         ;temp move string 1 to r8
+    mov r9, rsi         ;temp move string 2 to r9
+    push rdi            ;preserves string 1 prior to function call
+    push rsi            ;preserves string 2 prior to function call
+    xor rdi, rdi        ;clears rdi
+    mov rdi, r8         ;sets rdi to string 1
+    call ex_strlen      ;get strlen of string 1
+    mov r8, rax         ;preserved string 1 length
+    xor rax, rax        ;cleared rax
+    ;push rsi            ;preserves string 2 prior to function call
+    xor rdi, rdi        ;cleared rdi
+    pop rsi             ;restore rsi, string 2
+    mov rdi, rsi        ;temp move string 2 into rdi
+    push rsi            ;preserve string 2
+    call ex_strlen      ;get strlen of string 2
+    xor rcx, rcx        ;clear rcx
+    mov rcx, rax        ;make rcx count (strlen of string 2, needle)
+    mov r10, rcx        ;preserves string length of needle
+    xor rax, rax
+    pop rsi             ;brings back string 2
+    pop rdi             ;brings back string 1
 
+    jmp .find_string
+
+    .itterate_strings:
+        inc rsi
+        inc rdi
+
+    .find_string:
+        cmp rdi, rsi        ;compares values in rdi with rsi
+        je .matched         ;if equal, jump to label matched
+        dec r8
+        cmp r8, 0
+        je .string_not_found    ;if not equal, jump to label not_matched
+        ;jne .itterate_strings
+    
+    .first_match:
+        cmp rcx, r10
+        jne .continue_matching
+        mov r9, rdi
+        jmp .continue_matching
+
+    .matched:
+        cmp rcx, r10
+        je .first_match
+        
+    .continue_matching:
+        inc rdi             ;increment rdi for testing next char
+        inc rsi             ;increment rsi for testing next char
+        dec rcx             ;decrement rcx to keep count for size of needle left to check
+        cmp rcx, -1
+        je .string_found    ;jump to string_found so that rdi can be push into rax for return
+        jmp .find_string    ;jump back to find_string and run again
+
+;    .first_match:
+;        cmp rcx, r10
+;        jne .continue_matching
+;        mov r9, rdi
+;        jmp .continue_matching
+
+    .string_not_found:
+        mov rax, 0          ;make rax null since string was not found
+        jmp .return_me
+
+    .string_found:
+        mov rax, r9   ;mov the first occurance of string 2 (first element) from rdi into rax, r10 is lenght of string2
+    
+    .return_me:
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;  END student code
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
